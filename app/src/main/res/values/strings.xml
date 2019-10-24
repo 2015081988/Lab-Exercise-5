@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Lab Exercise 4</string>
+    <string-array name="android_versions">
+        <item>Cupcake~1.5~April 27, 2009~3~Android "Cupcake" (version 1.5) is the third version of Android developed by Google.</item>
+        <item>Donut~1.6~September 15, 2009~4~Android "Donut" is the fourth version of the open source Android mobile operating system developed by Google that is no longer supported. </item>
+        <item>Eclair~2.0 – 2.1~October 26, 2009~5 – 7~Android "Eclair" is a codename of the Android mobile operating system developed by Google and the fifth operating system for Android.</item>
+        <item>Froyo~2.2 – 2.2.3~May 20, 2010~8~Android "Froyo" is the sixth version of Android and is a codename of the Android mobile operating system developed by Google, spanning versions between 2.2 and 2.2.3.</item>
+        <item>Gingerbread~2.3 – 2.3.7~December 6, 2010~9 – 10~Android "Gingerbread" is the seventh version of Android, a codename of the Android mobile operating system developed by Google and released in December 2010, for versions that are no longer supported.</item>
+        <item>Honeycomb~3.0 – 3.2.6~February 22, 2011~11 – 13~Android "Honeycomb" is the codename for the eighth version of Android, designed for devices with larger screen sizes, particularly tablets.</item>
+        <item>Ice Cream Sandwich~4.0 – 4.0.4~October 18, 2011~14 – 15~Android "Ice Cream Sandwich" is the ninth version of the Android mobile operating system developed by Google. </item>
+        <item>Jelly Bean~4.1 – 4.3.1~July 9, 2012~16 – 18~Android "Jelly Bean" is the tenth version of Android and the codename given to three major point releases of the Android mobile operating system.</item>
+        <item>KitKat~4.4 – 4.4.4~October 31, 2013~19 – 20~Android "KitKat" is a codename for the Android mobile operating system and the eleventh version of Android.</item>
+        <item>Lollipop~5.0 – 5.1.1~November 12, 2014~21 – 22~Android "Lollipop" (codenamed Android L during development) is the fifth major version of the Android mobile operating system developed by Google.</item>
+        <item>Marshmallow~6.0 – 6.0.1~October 5, 2015~23~Android "Marshmallow" (codenamed Android M during development) is the sixth major version of the Android operating system and the 13th version of Android.</item>
+        <item>Nougat~7.0 – 7.1.2~August 22, 2016~24 – 25~Android "Nougat" (codenamed Android N during development) is the seventh major version and 14th original version of the Android operating system.</item>
+        <item>Oreo~8.0 – 8.1~August 21, 2017~26 – 27~Android "Oreo" (codenamed Android O during development) is the eighth major release and the 15th version of the Android mobile operating system.</item>
+        <item>Pie~9.0~August 6, 2018~28~Android Pie (codenamed Android P during development) is the ninth major release and the 16th version of the Android mobile operating system.</item>
+        <item>Android 10~10.0~September 3, 2019~29~Android 10 is the tenth major release and the 17th version of the Android mobile operating system.</item>
+    </string-array>
+</resources>
