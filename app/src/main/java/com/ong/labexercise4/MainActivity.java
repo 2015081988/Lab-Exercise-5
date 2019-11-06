@@ -5,12 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ong.labexercise4.models.AndroidVersion;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listViewVersionHistory;
     private List<Integer> versionImages;
+    private File folder;
+
+    private File file;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
         initializeWidget();
         String[] versions = getResources().getStringArray(R.array.android_versions);
         final List<AndroidVersion> androidVersions = _seedData(versions);
-
-        AndroidVersionAdapter adapter = new AndroidVersionAdapter(this,androidVersions);
+        folder = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        file = new File(folder, "android.txt");
+        AndroidVersionAdapter adapter = new AndroidVersionAdapter(this, androidVersions);
         listViewVersionHistory.setAdapter(adapter);
         listViewVersionHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -37,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private List<AndroidVersion> _seedData(String[] loadData){
+    private List<AndroidVersion> _seedData(String[] loadData) {
         List<AndroidVersion> androidVersions = new ArrayList<>();
-        for (int i = 0; i < loadData.length; i++){
+        for (int i = 0; i < loadData.length; i++) {
             androidVersions.add(generateAndroidVersion(loadData[i], i));
         }
         return androidVersions;
     }
 
-    private AndroidVersion generateAndroidVersion(String versionString, int index){
+    private AndroidVersion generateAndroidVersion(String versionString, int index) {
         String[] androidVersion = versionString.split("~");
         AndroidVersion newVersion = new AndroidVersion();
         newVersion.setName(androidVersion[0]);
@@ -57,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         return newVersion;
     }
 
-    private void initializeWidget(){
+    private void initializeWidget() {
         listViewVersionHistory = findViewById(R.id.listview_version_history);
         versionImages = new ArrayList<>();
         versionImages.add(R.drawable.cupcake);
@@ -77,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
         versionImages.add(R.drawable.android_10);
     }
 
-    public void showAlertDialog(AndroidVersion androidVersion){
+
+    public void showAlertDialog(final AndroidVersion androidVersion) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(androidVersion.getName());
         dialog.setIcon(androidVersion.getImageResource());
@@ -85,9 +98,59 @@ public class MainActivity extends AppCompatActivity {
         dialog.setNeutralButton("Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                writeData(String.format("%s - %s", androidVersion.getApiLevel(), androidVersion.getReleaseDate()));
+                String data = readData();
+                Toast.makeText(MainActivity.this, data, Toast.LENGTH_SHORT).show();
             }
         });
         dialog.create().show();
     }
+
+    private String readData() {
+        FileInputStream stream = null;
+        File file = new File(folder, "android.txt");
+        StringBuilder sb = new StringBuilder();
+        try {
+            stream = new FileInputStream(file);
+            int i;
+            while ((i = stream.read()) != -1) {
+                sb.append((char) i);
+            }
+            return sb.toString();
+        } catch (FileNotFoundException e) {
+            Log.d("error", "File not found");
+        } catch (IOException e) {
+            Log.d("error", "IO error");
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    private void writeData(String data) {
+        FileOutputStream stream = null;
+        try {
+            stream = new FileOutputStream(file);
+            stream.write(data.getBytes());
+        } catch (FileNotFoundException e) {
+            Log.d("error", "File not found");
+        } catch (IOException e) {
+            Log.d("error", "IO error");
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
